@@ -1,8 +1,7 @@
-'use client';
 import AddQuestion from '../components/AddQuestion';
 import QuestionList from '../components/QuestionList';
 
-const AdminPage = () => {
+export default function Admin() {
     return (
         <div>
             <h1>Admin Page</h1>
@@ -10,6 +9,4 @@ const AdminPage = () => {
             <QuestionList />
         </div>
     );
-};
-
-export default AdminPage;
+}
