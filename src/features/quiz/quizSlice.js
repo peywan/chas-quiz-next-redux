@@ -1,34 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-    questions: [],
-    currentQuestionIndex: 0,
-    userAnswers: [],
-    score: 0,
-};
-
 const quizSlice = createSlice({
     name: 'quiz',
-    initialState,
+    initialState: {
+        questions: [],
+        userAnswers: [],
+        score: 0,
+    },
     reducers: {
         addQuestion: (state, action) => {
             state.questions.push(action.payload);
         },
-        answerQuestion: (state, action) => {
-            const { questionIndex, answer } = action.payload;
-            state.userAnswers[questionIndex] = answer;
-            if (state.questions[questionIndex].correctAnswer === answer) {
-                state.score += 1;
+        removeQuestion: (state, action) => {
+            state.questions = state.questions.filter(q => q.id !== action.payload);
+        },
+        updateQuestion: (state, action) => {
+            const index = state.questions.findIndex(q => q.id === action.payload.id);
+            if (index !== -1) {
+                state.questions[index] = action.payload;
             }
         },
-        resetQuiz: (state) => {
-            state.currentQuestionIndex = 0;
-            state.userAnswers = [];
-            state.score = 0;
+        setUserAnswers: (state, action) => {
+            state.userAnswers = action.payload;
+        },
+        setScore: (state, action) => {
+            state.score = action.payload;
         },
     },
 });
 
-export const { addQuestion, answerQuestion, resetQuiz } = quizSlice.actions;
-
+export const { addQuestion, removeQuestion, updateQuestion, setUserAnswers, setScore } = quizSlice.actions;
 export default quizSlice.reducer;
