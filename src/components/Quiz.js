@@ -1,36 +1,38 @@
+"use client";
+
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
-import { nextQuestion, incrementScore } from '@/features/quiz/quizSlice';
+import { answerQuestion, resetQuiz } from '@/features/quiz/quizSlice';
 
 export default function Quiz() {
-    const { questions, currentQuestionIndex } = useSelector((state) => state.quiz);
     const dispatch = useDispatch();
-    const [answer, setAnswer] = useState('');
-
-    if (currentQuestionIndex >= questions.length) {
-        return <h2>Quiz Complete!</h2>;
-    }
-
+    const { questions, currentQuestionIndex, score } = useSelector((state) => state.quiz);
     const currentQuestion = questions[currentQuestionIndex];
 
-    const handleAnswer = () => {
-        if (answer === currentQuestion.answer) {
-            dispatch(incrementScore());
-        }
-        setAnswer('');
-        dispatch(nextQuestion());
+    const handleAnswer = (answer) => {
+        dispatch(answerQuestion(answer));
+    };
+
+    const handleReset = () => {
+        dispatch(resetQuiz());
     };
 
     return (
         <div>
-            <h2>{currentQuestion.question}</h2>
-            <input
-                type="text"
-                placeholder="Your Answer"
-                value={answer}
-                onChange={(e) => setAnswer(e.target.value)}
-            />
-            <button onClick={handleAnswer}>Submit</button>
+            {currentQuestion ? (
+                <>
+                    <h2>{currentQuestion.question}</h2>
+                    {currentQuestion.options.map((option, index) => (
+                        <button key={index} onClick={() => handleAnswer(option)}>
+                            {option}
+                        </button>
+                    ))}
+                </>
+            ) : (
+                <div>
+                    <p>Your score: {score}</p>
+                    <button onClick={handleReset}>Restart Quiz</button>
+                </div>
+            )}
         </div>
     );
 }

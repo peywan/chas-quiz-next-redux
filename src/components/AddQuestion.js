@@ -1,34 +1,51 @@
+"use client";
+
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addQuestion } from '@/features/quiz/quizSlice';
 
 export default function AddQuestion() {
     const [question, setQuestion] = useState('');
+    const [options, setOptions] = useState(['', '', '', '']);
     const [answer, setAnswer] = useState('');
     const dispatch = useDispatch();
 
-    const handleSubmit = () => {
-        dispatch(addQuestion({ question, answer }));
+    const handleAddQuestion = () => {
+        dispatch(addQuestion({ question, options, answer }));
         setQuestion('');
+        setOptions(['', '', '', '']);
         setAnswer('');
     };
 
     return (
         <div>
-            <h2>Add a Question</h2>
+            <h2>Add Question</h2>
             <input
                 type="text"
-                placeholder="Question"
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}
+                placeholder="Question"
             />
+            {options.map((option, index) => (
+                <input
+                    key={index}
+                    type="text"
+                    value={option}
+                    onChange={(e) => {
+                        const newOptions = [...options];
+                        newOptions[index] = e.target.value;
+                        setOptions(newOptions);
+                    }}
+                    placeholder={`Option ${index + 1}`}
+                />
+            ))}
             <input
                 type="text"
-                placeholder="Answer"
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
+                placeholder="Answer"
             />
-            <button onClick={handleSubmit}>Add Question</button>
+            <button onClick={handleAddQuestion}>Add Question</button>
         </div>
     );
 }

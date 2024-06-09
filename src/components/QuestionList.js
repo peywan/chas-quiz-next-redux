@@ -1,3 +1,5 @@
+"use client";
+
 import { useSelector, useDispatch } from 'react-redux';
 import { removeQuestion } from '@/features/quiz/quizSlice';
 
@@ -7,15 +9,12 @@ export default function QuestionList() {
 
     return (
         <div>
-            <h2>Questions</h2>
-            <ul>
-                {questions.map((q, index) => (
-                    <li key={index}>
-                        {q.question}
-                        <button onClick={() => dispatch(removeQuestion(index))}>Remove</button>
-                    </li>
-                ))}
-            </ul>
+            {questions.map((question, index) => (
+                <div key={index}>
+                    <p>{question.question}</p>
+                    <button onClick={() => dispatch(removeQuestion(index))}>Remove</button>
+                </div>
+            ))}
         </div>
     );
 }

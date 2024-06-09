@@ -1,23 +1,23 @@
 'use client';
 
-import '../globals.css';
+import './globals.css'; // Correct path based on your structure
 import { Provider } from 'react-redux';
-import { store } from '../store';
+import { store } from './store';
 import Link from 'next/link';
 
 export default function RootLayout({ children }) {
     return (
-        <html>
+        <html lang="en">
         <body>
         <Provider store={store}>
-            <nav>
-                <ul>
-                    <li><Link href="/">Home</Link></li>
-                    <li><Link href="./admin">Admin</Link></li>
-                    <li><Link href="./quiz">Quiz</Link></li>
-                </ul>
-            </nav>
-            {children}
+            <header>
+                <nav>
+                    <Link href="/">Home</Link>
+                    <Link href="/admin">Admin</Link>
+                    <Link href="/quiz">Quiz</Link>
+                </nav>
+            </header>
+            <main>{children}</main>
         </Provider>
         </body>
         </html>

@@ -1,3 +1,4 @@
+// src/features/quiz/quizSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -13,22 +14,25 @@ const quizSlice = createSlice({
         addQuestion: (state, action) => {
             state.questions.push(action.payload);
         },
-        removeQuestion: (state, action) => {
-            state.questions = state.questions.filter((q, index) => index !== action.payload);
-        },
-        nextQuestion: (state) => {
-            state.currentQuestionIndex += 1;
+        answerQuestion: (state, action) => {
+            // Logic to handle answering a question
         },
         resetQuiz: (state) => {
             state.currentQuestionIndex = 0;
             state.score = 0;
         },
-        incrementScore: (state) => {
-            state.score += 1;
-        },
     },
 });
 
-export const { addQuestion, removeQuestion, nextQuestion, resetQuiz, incrementScore } = quizSlice.actions;
-
+export const { addQuestion, answerQuestion, resetQuiz } = quizSlice.actions;
 export default quizSlice.reducer;
+
+// src/store.js
+import { configureStore } from '@reduxjs/toolkit';
+import quizReducer from '../../features/quiz/quizSlice';
+
+export const store = configureStore({
+    reducer: {
+        quiz: quizReducer,
+    },
+});

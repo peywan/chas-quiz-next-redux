@@ -1,3 +1,5 @@
+"use client";
+
 import { useSelector } from 'react-redux';
 
 export default function Result() {
@@ -6,10 +8,14 @@ export default function Result() {
 
     return (
         <div>
-            <h2>Your Score</h2>
-            <p>
-                {score} out of {questions.length}
-            </p>
+            <h2>Your Score: {score}</h2>
+            <h3>Questions:</h3>
+            <ul>
+                {questions.map((question, index) => (
+                    <li key={index}>{question.question}</li>
+                ))}
+            </ul>
         </div>
     );
 }
+g
