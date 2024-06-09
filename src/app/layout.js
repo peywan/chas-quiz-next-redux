@@ -1,8 +1,8 @@
 'use client';
 
-import './globals.css';
+import '../globals.css';
 import { Provider } from 'react-redux';
-import { store } from './store';
+import { store } from '../store';
 import Link from 'next/link';
 
 export default function RootLayout({ children }) {
@@ -13,8 +13,8 @@ export default function RootLayout({ children }) {
             <nav>
                 <ul>
                     <li><Link href="/">Home</Link></li>
-                    <li><Link href="./admin/admin.js">Admin</Link></li>
-                    <li><Link href="./quiz/quiz.js">Quiz</Link></li>
+                    <li><Link href="./admin">Admin</Link></li>
+                    <li><Link href="./quiz">Quiz</Link></li>
                 </ul>
             </nav>
             {children}

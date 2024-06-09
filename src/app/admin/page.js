@@ -1,5 +1,5 @@
-import AddQuestion from "../../components/AddQuestion";
-import QuestionList from "../../components/QuestionList";
+import AddQuestion from '../../components/AddQuestion';
+import QuestionList from '../../components/QuestionList';
 
 export default function AdminPage() {
     return (

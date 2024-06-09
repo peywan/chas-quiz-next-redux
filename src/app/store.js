@@ -6,5 +6,3 @@ export const store = configureStore({
         quiz: quizReducer,
     },
 });
-
-export default store;

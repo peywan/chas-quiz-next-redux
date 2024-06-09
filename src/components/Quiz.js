@@ -1,33 +1,36 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { setCorrectAnswers } from '../features/quiz/quizSlice';
-import { useDispatch } from 'react-redux';
+import { nextQuestion, incrementScore } from '@/features/quiz/quizSlice';
 
 export default function Quiz() {
-    const questions = useSelector((state) => state.quiz.questions);
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [answers, setAnswers] = useState([]);
+    const { questions, currentQuestionIndex } = useSelector((state) => state.quiz);
     const dispatch = useDispatch();
+    const [answer, setAnswer] = useState('');
 
-    const handleAnswer = (answer) => {
-        setAnswers([...answers, answer]);
-        if (currentQuestionIndex < questions.length - 1) {
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
-        } else {
-            const correctAnswers = answers.filter(a => a === true).length;
-            dispatch(setCorrectAnswers(correctAnswers));
-        }
-    };
-
-    if (questions.length === 0) {
-        return <p>No questions available</p>;
+    if (currentQuestionIndex >= questions.length) {
+        return <h2>Quiz Complete!</h2>;
     }
+
+    const currentQuestion = questions[currentQuestionIndex];
+
+    const handleAnswer = () => {
+        if (answer === currentQuestion.answer) {
+            dispatch(incrementScore());
+        }
+        setAnswer('');
+        dispatch(nextQuestion());
+    };
 
     return (
         <div>
-            <p>{questions[currentQuestionIndex].question}</p>
-            <button onClick={() => handleAnswer(true)}>True</button>
-            <button onClick={() => handleAnswer(false)}>False</button>
+            <h2>{currentQuestion.question}</h2>
+            <input
+                type="text"
+                placeholder="Your Answer"
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
+            />
+            <button onClick={handleAnswer}>Submit</button>
         </div>
     );
 }
