@@ -1,22 +1,18 @@
-'use client';
+"use client";
+import React from "react";
+import { useSelector } from "react-redux";
+import QuestionList from "./QuestionList";
 
-import { useSelector } from 'react-redux';
-import Question from '../components/Question';
-import Result from '../components/Result';
-
-export default function Quiz() {
-    const questions = useSelector((state) => state.quiz.questions);
+const Quiz = () => {
+    const score = useSelector((state) => state.quiz.score);
 
     return (
         <div>
             <h1>Quiz Page</h1>
-            <div>
-                <h2>Questions:</h2>
-                {questions.map((question, index) => (
-                    <Question key={index} question={question} />
-                ))}
-            </div>
-            <Result />
+            <h2>Your Score: {score}</h2>
+            <QuestionList />
         </div>
     );
-}
+};
+
+export default Quiz;
