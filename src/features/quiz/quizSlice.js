@@ -2,7 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     questions: [
-        // Your sample questions here
+        {
+            id: 1,
+            text: "What is the capital of France?",
+            options: ["Paris", "London", "Berlin", "Madrid"],
+            correctAnswer: "Paris"
+        },
+        // Add more questions as needed
     ],
     score: 0,
 };
@@ -13,7 +19,10 @@ const quizSlice = createSlice({
     reducers: {
         answerQuestion: (state, action) => {
             const { questionId, answer } = action.payload;
-            // logic to check the answer and update the score
+            const question = state.questions.find(q => q.id === questionId);
+            if (question && question.correctAnswer === answer) {
+                state.score += 1;
+            }
         },
         incrementScore: (state) => {
             state.score += 1;
@@ -26,3 +35,4 @@ const quizSlice = createSlice({
 
 export const { answerQuestion, incrementScore, resetScore } = quizSlice.actions;
 export default quizSlice.reducer;
+g

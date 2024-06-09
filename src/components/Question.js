@@ -12,8 +12,8 @@ export default function Question({ question }) {
 
     return (
         <div>
-            <h3>{question.text}</h3>
-            {question.options.map((option, index) => (
+            <h3>{question?.text}</h3>
+            {question?.options.map((option, index) => (
                 <button key={index} onClick={() => handleAnswer(option)}>
                     {option}
                 </button>
