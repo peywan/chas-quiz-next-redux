@@ -8,7 +8,6 @@ const Quiz = () => {
 
     return (
         <div>
-            <h1>Quiz Page</h1>
             <h2>Your Score: {score}</h2>
             <QuestionList />
         </div>
