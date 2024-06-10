@@ -11,7 +11,12 @@ export default function AddQuestion() {
     const dispatch = useDispatch();
 
     const handleAddQuestion = () => {
-        dispatch(addQuestion({ question, options, answer }));
+        dispatch(addQuestion({
+            id: Date.now(), // Ensure unique id for each question
+            text: question,
+            options: options,
+            correctAnswer: answer
+        }));
         setQuestion('');
         setOptions(['', '', '', '']);
         setAnswer('');

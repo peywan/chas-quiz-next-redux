@@ -22,7 +22,7 @@ const Question = ({ question }) => {
                     {option}
                 </button>
             ))}
-            <button onClick={handleRemove}>Remove</button>
+            <button style={{ backgroundColor: 'red' }} onClick={handleRemove}>Remove</button>
         </div>
     );
 };
