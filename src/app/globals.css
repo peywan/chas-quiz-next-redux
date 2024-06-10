@@ -64,10 +64,17 @@ nav a {
 
 .container {
   padding: 20px;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.container input, .container button  {
+  margin: 9px;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 15px;
+  font-family: "Al Bayan", "Helvetica Neue", "Helvetica", serif;
 }
 
 h1, h2 {

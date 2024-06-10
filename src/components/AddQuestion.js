@@ -12,7 +12,7 @@ export default function AddQuestion() {
 
     const handleAddQuestion = () => {
         dispatch(addQuestion({
-            id: Date.now(), // Ensure unique id for each question
+            id: Date.now(),
             text: question,
             options: options,
             correctAnswer: answer
@@ -23,7 +23,7 @@ export default function AddQuestion() {
     };
 
     return (
-        <div>
+        <div className="container">
             <h2>Add Question</h2>
             <input
                 type="text"

@@ -1,26 +1,35 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Ladda frågor från localStorage
 const loadQuestions = () => {
-    const questions = localStorage.getItem('questions');
-    return questions ? JSON.parse(questions) : [
+    if (typeof window !== 'undefined') { // Check if window is defined
+        const questions = localStorage.getItem('questions');
+        return questions ? JSON.parse(questions) : [
+            { id: 1, text: "What is the capital of France?", options: ["Paris", "London", "Berlin", "Madrid"], correctAnswer: "Paris" },
+        ];
+    }
+    return [
         { id: 1, text: "What is the capital of France?", options: ["Paris", "London", "Berlin", "Madrid"], correctAnswer: "Paris" },
     ];
 };
 
 const initialState = {
-    questions: loadQuestions(),
+    questions: [],
     score: 0,
 };
 
 const saveQuestions = (questions) => {
-    localStorage.setItem('questions', JSON.stringify(questions));
+    if (typeof window !== 'undefined') { // Check if window is defined
+        localStorage.setItem('questions', JSON.stringify(questions));
+    }
 };
 
 const quizSlice = createSlice({
     name: "quiz",
     initialState,
     reducers: {
+        initializeQuestions: (state) => {
+            state.questions = loadQuestions();
+        },
         addQuestion: (state, action) => {
             state.questions.push(action.payload);
             saveQuestions(state.questions);
@@ -39,5 +48,5 @@ const quizSlice = createSlice({
     },
 });
 
-export const { addQuestion, removeQuestion, answerQuestion } = quizSlice.actions;
+export const { initializeQuestions, addQuestion, removeQuestion, answerQuestion } = quizSlice.actions;
 export default quizSlice.reducer;
